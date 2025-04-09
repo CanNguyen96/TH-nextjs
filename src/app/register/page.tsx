@@ -50,7 +50,7 @@ export default function Register() {
                 setPassword("");
                 // Refresh user list
                 const usersResponse = await fetch("/api/users");
-                const usersData = await usersResponse.json(); // Fixed: Use usersResponse here
+                const usersData = await usersResponse.json();
                 if (usersResponse.ok) {
                     setUsers(usersData.users);
                 }

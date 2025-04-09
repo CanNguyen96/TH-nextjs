@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { findUserByEmail } from "@/app/lib/users";
+import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest) {
     try {
         const { email, password } = await request.json();
 
+        // Validate input
         if (!email || !password) {
             return NextResponse.json(
                 { error: "Missing required fields" },
@@ -12,7 +14,8 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const user = findUserByEmail(email);
+        // Find user
+        const user = await findUserByEmail(email);
         if (!user) {
             return NextResponse.json(
                 { error: "User not found" },
@@ -20,7 +23,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (user.password !== password) {
+        // Verify password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return NextResponse.json(
                 { error: "Invalid password" },
                 { status: 401 }
@@ -32,6 +37,7 @@ export async function POST(request: NextRequest) {
             { status: 200 }
         );
     } catch (error) {
+        console.error("Error logging in:", error);
         return NextResponse.json(
             { error: "Internal server error" },
             { status: 500 }
