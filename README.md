@@ -1,10 +1,3 @@
-
-NGUYEN NGOC CAN _ N22DCCN009 _ D22CQCN01-N
-
-
-
-
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

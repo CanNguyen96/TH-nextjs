@@ -1,4 +1,3 @@
-// app/lib/users.ts
 import pool from "./db";
 import bcrypt from "bcrypt";
 
